@@ -20,7 +20,6 @@ public interface APIService {
             @Field("price") Integer price
     );
 
-    //Method untuk update data
 
     @POST("/{token}/item/{id}/update")
     @FormUrlEncoded

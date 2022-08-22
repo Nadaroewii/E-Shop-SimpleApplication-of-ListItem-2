@@ -1,5 +1,6 @@
 package com.lat1.proyek_4_nada.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -39,7 +40,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull ItemViewHolder holder, @SuppressLint("RecyclerView") int i) {
         holder.tvName.setText(listItems.get(i).getName());
         holder.tvBrand.setText(listItems.get(i).getBrand());
         holder.tvPrice.setText("" + listItems.get(i).getPrice());

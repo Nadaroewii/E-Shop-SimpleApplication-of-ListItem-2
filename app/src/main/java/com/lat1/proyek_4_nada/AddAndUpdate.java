@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,10 +55,30 @@ public class AddAndUpdate extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isEdit) {
-                    editData();
+                if(TextUtils.isEmpty(edName.getText().toString().trim())
+                        && TextUtils.isEmpty((edPrice.getText().toString().trim()))
+                        && TextUtils.isEmpty(edBrand.getText().toString().trim())
+                ){
+
+                    edName.setError("Mohon Isi Data");
+                    edPrice.setError("Mohon Isi Data");
+                    edBrand.setError("Mohon Isi Data");
+
+                }else if(TextUtils.isEmpty((edName.getText().toString().trim())) ){
+                    edName.setError("Mohon Isi Nama");
+
+                }else if(TextUtils.isEmpty((edPrice.getText().toString().trim())) ){
+                    edPrice.setError("Mohon Isi Harga");
+
+                }else if(TextUtils.isEmpty((edBrand.getText().toString().trim())) ){
+                    edBrand.setError("Mohon Isi Merk");
+
                 } else {
-                    addNewData();
+                    if (isEdit) {
+                        KonfirmasiUpdate();
+                    } else {
+                        addNewData();
+                    }
                 }
             }
         });
@@ -182,7 +204,17 @@ public class AddAndUpdate extends AppCompatActivity {
         });
 
     }
-
+    void KonfirmasiUpdate() {
+        new AlertDialog.Builder(this).setTitle("Update Item")
+                .setMessage("Apakah Anda ingin mengubah Item ini?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        editData();
+                        Toast.makeText(AddAndUpdate.this, "Berhasil diupdate", Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton(android.R.string.no, null).show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (isEdit) {
